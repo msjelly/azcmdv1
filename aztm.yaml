@@ -1,0 +1,40 @@
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: aztm
+spec:
+  template:
+    spec:
+      containers:
+      - name: azcmd
+        image: kcorer/azcmd
+        command: ["/tm",  "rakelkar-delete-me", "eastus", "ugh-tm", "ahahahahahaha", "anep", "40.70.209.164"]
+        env:
+          - name: AZ_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: azcreds
+                key: AZ_CLIENT_ID
+          - name: AZ_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: azcreds
+                key: AZ_CLIENT_SECRET
+          - name: AZ_TENANT_ID
+            valueFrom:
+              secretKeyRef:
+                name: azcreds
+                key: AZ_TENANT_ID
+          - name: AZ_SP_OBJECT_ID
+            valueFrom:
+              secretKeyRef:
+                name: azcreds
+                key: AZ_SP_OBJECT_ID
+          - name: AZ_SUBSCRIPTION_ID
+            valueFrom:
+              secretKeyRef:
+                name: azcreds
+                key: AZ_SUBSCRIPTION_ID
+      restartPolicy: Never
+  backoffLimit: 4
