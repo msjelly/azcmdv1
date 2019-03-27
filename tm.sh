@@ -24,6 +24,10 @@ else
           --protocol HTTP \
           --port 80 \
           --path "/"
+        if [ $? -ne 0 ]; then
+            echo "Traffic Manager profile creation failed"
+            exit 1
+        fi
     else
         echo "DNS availability check failed"
         exit 1
