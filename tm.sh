@@ -43,6 +43,7 @@ az network traffic-manager endpoint show \
 if [ $? -eq 0 ]; then
     echo "endpoint found"
 else
+    echo "creating endpoint"
     az network traffic-manager endpoint create \
       -g ${TM_RESOURCE_GROUP} \
       --profile-name ${TM_NAME} \
