@@ -7,12 +7,16 @@ export TM_DNS_PREFIX=$4
 export ENDPOINT_NAME=$5
 export ENDPOINT_ADDRESS=$6
 
+export CREATE_TM_PROFILE=$7
 
 az group create -l ${TM_RG_LOCATION} -n ${TM_RESOURCE_GROUP}
 
 az network traffic-manager profile show -g ${TM_RESOURCE_GROUP} -n ${TM_NAME}
 if [ $? -eq 0 ]; then
-    echo "traffic manager found"
+    echo "traffic manager found: RG ${TM_RESOURCE_GROUP} TM_PROFILE ${TM_NAME}"
+elif [ -not ${CREATE_TM_PROFILE} ]; then
+    echo "traffic manager not found: RG ${TM_RESOURCE_GROUP} TM_PROFILE ${TM_NAME}"
+    exit 1
 else
     az network traffic-manager profile check-dns -n ${TM_DNS_PREFIX}
     if [ $? -eq 0 ]; then
