@@ -2,6 +2,7 @@
 set -e
 
 if [ -z ${AZ_CLIENT_ID} ]; then
+#if [ 1 -eq 1 ] ; then
     # n.b. https://github.com/Azure/azure-cli/issues/9537
     echo "logging in with managed identity"
     az login --identity

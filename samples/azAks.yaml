@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    aadpodidbinding: partition-azure-aadpodidbinding
+    app: azcmd
+    azcmd-op: add-nodepool
+  name: nodepool-adder
+  namespace: partition-dev-controllers-system
+spec:
+  template:
+    metadata:
+      labels:
+        aadpodidbinding: partition-azure-aadpodidbinding
+        app: azcmd
+        azcmd-op: add-nodepool
+    spec:
+      containers:
+      - name: azcmd
+        image: catalinaisle/azcmdv1:latest
+        imagePullPolicy: Always
+        command: ["/aks.sh", "aksParts", "janle", "contoso", "Standard_DS2_v2", "1", "3"]
+      restartPolicy: Never
+  backoffLimit: 10
